@@ -14,7 +14,6 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  // InteractionManager,
 } from 'react-native';
 import InputLog from '../components/Form/Form';
 import loginLogo from '../Assets/Images/logo.png';
@@ -65,7 +64,6 @@ const SignIn = ({navigation}) => {
       {
         cancelable: true,
         onDismiss: () => {
-          // setLoader(!loader);
           console.log('Alert Closed');
         },
       },
@@ -81,23 +79,12 @@ const SignIn = ({navigation}) => {
   const onSubmitHandler = () => {
     setLoader(!loader);
     console.log(FormData);
-
-    // const result = authSchema.Validate(FormData);
-    // console.log('====================================');
-    // console.log(result);
-    // console.log('====================================');
     LoginValidator.isValid(FormData).then(valid => {
       setValid(true);
     });
     LoginValidator.validate(FormData).catch(function (err) {
       createTwoButtonAlert({msg: err.message});
       setLoader(false);
-      // resetForm();
-      // console.log('====================================');
-      // console.log(err.name);
-      // console.log(err.errors);
-      // console.log('====================================');
-      // err.errors; // => ['Deve ser maior que 18']
     });
     axios
       .post('http://amc-management.protocolsolution.com/api/login', FormData)
@@ -108,7 +95,7 @@ const SignIn = ({navigation}) => {
         console.log('====================================');
         if (response.status === '200') {
           setLoader(!loader);
-          navigation.navigate('Home', response);
+          navigation.navigate('TabScreen', response);
         }
         if (response.status === '400') {
           createTwoButtonAlert(response);
