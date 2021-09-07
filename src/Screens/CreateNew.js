@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
 // --- components ---
-import TopBar from '../components/CreateTicket/TopBar';
+import Logo from '../Assets/Images/logo.png';
 import CreateTicket from '../components/Form/Form';
 
 const CreateNew = ({navigation}) => {
-  const userData = navigation.state.params.user;
-  console.log(userData);
+  const userData = navigation?.state?.params?.user;
+  // console.log(userData);
   const [FormData, setFormData] = useState({
-    user_id: userData.id,
+    user_id: userData?.id,
     assign_to: '',
     amc: '',
     category_id: '',
     brand_id: '',
     product_id: '',
-    name: userData.name,
-    mail_from: userData.email,
+    name: userData?.name,
+    mail_from: userData?.email,
     subject: '',
     comment: '',
     status: 1,
@@ -38,7 +38,7 @@ const CreateNew = ({navigation}) => {
       edit: false,
     },
     {
-      placeholder: 'Enter Subject',
+      placeholder: 'Subject',
       name: 'subject',
       value: FormData.subject,
       onChangeText: e => setFormData({...FormData, subject: e}),
@@ -71,7 +71,7 @@ const CreateNew = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <TopBar navigation={navigation} />
+      <Image style={styles.image} source={Logo} />
       {inputs.map((item, index) => (
         <CreateTicket key={index} style={styles.inputLog} data={item} />
       ))}
@@ -86,4 +86,14 @@ const CreateNew = ({navigation}) => {
 
 export default CreateNew;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    margin: 20,
+    justifyContent: 'center',
+  },
+  image: {
+    alignSelf: 'center',
+    width: 300,
+    height: 200,
+  },
+});
